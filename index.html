@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TODAY'S PICKS — 오늘의 패션</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0c0c0c;
+      --surface: #131313;
+      --border: #222;
+      --border-hover: #484848;
+      --text-primary: #f0ede8;
+      --text-muted: #666;
+      --text-dim: #3a3a3a;
+      --accent: #c8bfb0;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      text-align: center;
+      padding: 88px 20px 40px;
+    }
+
+    .site-eyebrow {
+      font-size: 10px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .site-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 7vw, 5.8rem);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+      color: var(--text-primary);
+    }
+
+    .site-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .site-meta {
+      margin-top: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .site-meta span + span::before {
+      content: '/';
+      margin-right: 28px;
+      opacity: 0.3;
+    }
+
+    /* ─── ERA FILTER ─── */
+    .era-filter {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 40px;
+    }
+
+    .era-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 9.5px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 9px 18px;
+      cursor: pointer;
+      transition: border-color 0.25s, color 0.25s, background 0.25s;
+      outline: none;
+    }
+
+    .era-btn:hover {
+      border-color: var(--border-hover);
+      color: #aaa;
+    }
+
+    .era-btn.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(200, 191, 176, 0.04);
+    }
+
+    /* ─── SHUFFLE BTN ─── */
+    .shuffle-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .shuffle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 9.5px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 12px 26px;
+      cursor: pointer;
+      transition: border-color 0.3s, color 0.3s;
+      outline: none;
+    }
+
+    .shuffle-btn:hover {
+      border-color: var(--border-hover);
+      color: var(--text-primary);
+    }
+
+    .shuffle-btn:disabled { opacity: 0.35; pointer-events: none; }
+
+    .shuffle-btn:hover .shuffle-icon { transform: rotate(180deg); }
+
+    .shuffle-icon {
+      font-size: 14px;
+      display: inline-block;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* ─── DIVIDER ─── */
+    .rule {
+      display: block;
+      width: 1px;
+      height: 64px;
+      background: linear-gradient(to bottom, transparent, var(--border), transparent);
+      margin: 0 auto 64px;
+    }
+
+    /* ─── GRID ─── */
+    .picks-grid {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 0 48px 140px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      perspective: 1400px;
+      perspective-origin: 50% 30%;
+      min-height: 400px;
+    }
+
+    /* ─── CARD ─── */
+    .card {
+      opacity: 0;
+      transform: translateY(70px) rotateX(18deg) scale(0.96);
+      transform-origin: center 80%;
+      transform-style: preserve-3d;
+      transition:
+        opacity 0.55s cubic-bezier(0.34, 1.42, 0.64, 1),
+        transform 0.55s cubic-bezier(0.34, 1.42, 0.64, 1);
+      cursor: pointer;
+    }
+
+    .card.snap {
+      opacity: 1;
+      transform: translateY(0) rotateX(0deg) scale(1);
+    }
+
+    .card.exit {
+      opacity: 0 !important;
+      transform: translateY(-28px) scale(0.95) !important;
+      transition: opacity 0.28s ease, transform 0.28s ease !important;
+    }
+
+    .card-inner {
+      border: 2px solid var(--border);
+      background: var(--surface);
+      transform-style: preserve-3d;
+      transition:
+        border-color 0.35s ease,
+        transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+        box-shadow 0.45s ease;
+    }
+
+    .card:hover .card-inner {
+      border-color: var(--border-hover);
+      transform: translateY(-10px) rotateX(-4deg) rotateY(2deg);
+      box-shadow:
+        0 40px 90px rgba(0,0,0,0.72),
+        0 12px 32px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    /* ─── CARD HEADER ─── */
+    .card-header {
+      padding: 24px 24px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card-header-left { flex: 1; }
+
+    .card-brand {
+      font-size: 9px;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 9px;
+    }
+
+    .card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      line-height: 1.25;
+      color: var(--text-primary);
+    }
+
+    .era-badge {
+      flex-shrink: 0;
+      font-size: 8.5px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 9px;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+
+    /* era badge color coding */
+    .era-badge[data-era="90s"]      { border-color: #3a3530; color: #7a6e64; }
+    .era-badge[data-era="00s"]      { border-color: #2e3028; color: #636b55; }
+    .era-badge[data-era="10s"]      { border-color: #28303a; color: #556475; }
+    .era-badge[data-era="20s"]      { border-color: #302838; color: #6e5580; }
+    .era-badge[data-era="Timeless"] { border-color: #2e2e2e; color: #585858; }
+
+    /* ─── IMAGE ─── */
+    .card-img-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+      background: #0a0a0a;
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: grayscale(8%) contrast(1.06) brightness(0.94);
+    }
+
+    .card:hover .card-img-wrap img { transform: scale(1.06); }
+
+    .card-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.4) 100%);
+      pointer-events: none;
+    }
+
+    .card-index {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.38);
+      font-weight: 500;
+      z-index: 2;
+    }
+
+    /* ─── CARD BODY ─── */
+    .card-body { padding: 24px 24px 28px; }
+
+    .card-season {
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0.6;
+      margin-bottom: 13px;
+    }
+
+    .card-desc {
+      font-size: 12.5px;
+      line-height: 1.9;
+      color: #727272;
+      letter-spacing: 0.01em;
+      word-break: keep-all;
+    }
+
+    .card-desc strong { color: #b5b5b5; font-weight: 500; }
+
+    .card-tags {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 8.5px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      transition: border-color 0.3s, color 0.3s;
+    }
+
+    .card:hover .tag { border-color: #2e2e2e; color: #4e4e4e; }
+
+    /* ─── POOL COUNTER ─── */
+    .pool-counter {
+      text-align: center;
+      margin-top: -96px;
+      margin-bottom: 96px;
+      font-size: 9.5px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 32px 20px;
+      border-top: 1px solid var(--border);
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1020px) {
+      .picks-grid { grid-template-columns: repeat(2, 1fr); padding: 0 28px 100px; }
+    }
+
+    @media (max-width: 640px) {
+      .picks-grid { grid-template-columns: 1fr; max-width: 460px; padding: 0 18px 80px; perspective: none; }
+      .card { transform: translateY(50px) scale(0.97); }
+      .card.snap { transform: translateY(0) scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <p class="site-eyebrow">Daily Fashion Curation</p>
+  <h1 class="site-title">Today's <em>Picks</em></h1>
+  <div class="site-meta">
+    <span id="today-date"></span>
+    <span id="pick-label">3 Items Curated</span>
+  </div>
+
+  <div class="era-filter" id="eraFilter">
+    <button class="era-btn active" data-era="all">All</button>
+    <button class="era-btn" data-era="90s">90s</button>
+    <button class="era-btn" data-era="00s">00s</button>
+    <button class="era-btn" data-era="10s">10s</button>
+    <button class="era-btn" data-era="20s">20s</button>
+    <button class="era-btn" data-era="Timeless">Timeless</button>
+  </div>
+
+  <div class="shuffle-wrap">
+    <button class="shuffle-btn" id="shuffleBtn">
+      <span class="shuffle-icon">↻</span>
+      <span>새로운 추천</span>
+    </button>
+  </div>
+</header>
+
+<span class="rule"></span>
+
+<main>
+  <div class="picks-grid" id="picksGrid"></div>
+  <p class="pool-counter" id="poolCounter"></p>
+</main>
+
+<footer>Today's Picks — Daily Fashion Curation</footer>
+
+<script>
+/* ══════════════════════════════════════════
+   ITEM POOL  (30 items across 5 eras)
+══════════════════════════════════════════ */
+const POOL = [
+
+  /* ── 1990s ── */
+  {
+    era: "90s",
+    brand: "Calvin Klein",
+    name: "White Slip Dress\n& CK Minimalism",
+    season: "FW 1993 — Kate Moss Era",
+    desc: "케이트 모스를 내세운 캘빈 클라인의 <strong>슬립 드레스</strong> 캠페인은 90년대 미니멀리즘의 선언문이었다. 광고 한 장이 '사치스럽지 않음이 가장 사치스럽다'는 명제를 증명했다. 럭셔리의 문법을 다시 쓴 아이템.",
+    tags: ["Minimalism", "Iconic", "20–40s"],
+    img: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "90s",
+    brand: "Helmut Lang",
+    name: "Deconstructed\nLeather Jacket",
+    season: "FW 1998 — Vienna Minimalism",
+    desc: "헬무트 랭은 마르지엘라와 함께 90년대 <strong>해체주의 미니멀리즘</strong>의 양대 산맥을 이뤘다. 솔기를 바깥으로 드러내고 테이프로 마감하는 방식은 냉정하고 지적인 빈 출신의 서정미다. 현재도 빈티지 시장에서 최고가를 기록한다.",
+    tags: ["Leather", "Deconstructed", "25–45s"],
+    img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "90s",
+    brand: "Versace",
+    name: "Medusa Safety\nPin Dress",
+    season: "FW 1994 — Gianni Versace",
+    desc: "1994년 엘리자베스 헐리가 입고 등장해 세계를 뒤흔든 <strong>안전핀 드레스</strong>. 잔니 베르사체의 황금빛 과잉은 금욕적 90년대 미니멀리즘에 대한 통쾌한 반격이었다. 섹슈얼리티와 권력을 동시에 드레이핑한 역사적 피스.",
+    tags: ["Evening", "Iconic", "25–40s"],
+    img: "https://images.unsplash.com/photo-1617952236317-0bd127407984?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "90s",
+    brand: "Jean Paul Gaultier",
+    name: "Conical Bra\nCorset Jacket",
+    season: "1990 — Madonna Blond Ambition",
+    desc: "마돈나의 블론드 앰비션 투어를 위해 제작된 <strong>코니컬 브라</strong>는 속옷을 겉옷으로 끌어낸 혁명이었다. 페미니즘과 오브젝티피케이션의 경계를 가로지르며, 여성의 몸을 바라보는 시각을 영구적으로 바꿔버린 피스.",
+    tags: ["Corsetry", "Theatrical", "25–45s"],
+    img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "90s",
+    brand: "Yohji Yamamoto",
+    name: "Asymmetric Black\nVolume Coat",
+    season: "FW 1997 — Y's Philosophy",
+    desc: "요지 야마모토의 <strong>검정</strong>은 색이 아닌 철학이다. 비대칭으로 끊어진 헴라인, 몸을 감싸다 갑자기 열리는 구조는 동양과 서양의 미학이 충돌하는 지점이다. '어떻게 입는가'를 묻는 옷.",
+    tags: ["Avant-garde", "Volume", "30–50s"],
+    img: "https://images.unsplash.com/photo-1573600073955-f15b3b6caab7?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "90s",
+    brand: "Ann Demeulemeester",
+    name: "White Shirt &\nDark Drape",
+    season: "SS 1999 — Antwerp Six Legacy",
+    desc: "앤 드뮬미스터의 <strong>화이트 셔츠</strong>는 결코 청순하지 않다. 검은 드레이프 아래에서 빠져나온 흰색은 어둠을 배경으로 가장 강렬해진다. 로맨틱하되 나약하지 않은, 앤트워프식 반골 미학의 총집합.",
+    tags: ["Drape", "Romantic", "25–45s"],
+    img: "https://images.unsplash.com/photo-1576987095867-4d3b05a6a33f?w=800&q=85&fit=crop&crop=top"
+  },
+
+  /* ── 2000s ── */
+  {
+    era: "00s",
+    brand: "Alexander McQueen",
+    name: "Armadillo Shoes\n& Plato's Atlantis",
+    season: "SS 2010 — Final Collection",
+    desc: "리 알렉산더 맥퀸의 마지막 완성 컬렉션 <strong>플라톤의 아틀란티스</strong>. 아르마딜로 슈즈는 발이 신을 수 있는 조각품이었다. 인간과 자연의 경계가 무너지는 포스트 다윈주의적 비전이 담긴 비극적 걸작.",
+    tags: ["Footwear", "Theatrical", "25–40s"],
+    img: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "00s",
+    brand: "Balenciaga",
+    name: "Motorcycle Bag\n(Nicolas Ghesquière)",
+    season: "FW 2001 — The Motor",
+    desc: "니콜라 게스키에르가 발렌시아가를 혁신한 <strong>모터 백</strong>은 2000년대를 정의했다. 지퍼, 스터드, 가는 끈이 얽힌 구조는 록과 쿠튀르의 교차점. 매거진마다 대기자 명단이 넘쳤던, 핸드백 역사의 한 챕터.",
+    tags: ["Bag", "Iconic", "25–40s"],
+    img: "https://images.unsplash.com/photo-1581044777550-4cfa63707723?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "00s",
+    brand: "John Galliano for Dior",
+    name: "Newspaper Dress\n& Bias-Cut Gown",
+    season: "FW 2000 — Haute Couture",
+    desc: "존 갈리아노가 연출한 <strong>신문지 드레스</strong>는 오뜨 쿠튀르의 재정의였다. 쓰레기와 사치가 공존하는 이 드레스는 패션이 사회를 어떻게 논평하는지를 보여줬다. 하우스의 역사를 깨고 새로 쓴 순간.",
+    tags: ["Couture", "Theatrical", "25–45s"],
+    img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e8?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "00s",
+    brand: "Fendi",
+    name: "Baguette Bag\n(Karl Lagerfeld Era)",
+    season: "FW 1997 — Silvia Venturini",
+    desc: "겨드랑이에 바게트처럼 끼고 다닌다는 이름의 <strong>바게트 백</strong>은 《섹스 앤 더 시티》 이후 시대의 상징이 됐다. 칼 라거펠트의 모피 장식과 실비아 벤투리니 펜디의 디자인. 작지만 결코 작지 않은 존재감.",
+    tags: ["Bag", "Iconic", "25–45s"],
+    img: "https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?w=800&q=85&fit=crop&crop=top"
+  },
+
+  /* ── 2010s ── */
+  {
+    era: "10s",
+    brand: "Celine",
+    name: "Trapeze Bag &\nPhoebe Philo Era",
+    season: "SS 2011 — Phoebe Philo",
+    desc: "피비 파일로의 셀린느는 <strong>페미니스트 럭셔리</strong>를 발명했다. 트라페즈 백과 클린 라인의 코트는 '지적인 여성이 무엇을 입는가'에 답했다. 그의 팬을 부르는 신조어 'Philophile'은 그 영향력의 크기를 말해준다.",
+    tags: ["Bag", "Minimal", "30–45s"],
+    img: "https://images.unsplash.com/photo-1594938298603-c8148c4b4e4e?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "10s",
+    brand: "Vetements",
+    name: "Oversized DHL\nHoodie",
+    season: "FW 2016 — Demna Gvasalia",
+    desc: "실제 DHL 배송 유니폼을 오버사이즈로 재해석한 <strong>DHL 후디</strong>는 300달러에 팔렸다. 노동, 소비, 브랜딩을 동시에 비평하는 이 아이템은 10년대 컨셉추얼 스트리트웨어의 정점. 웃기면서 진지하다.",
+    tags: ["Streetwear", "Concept", "20–35s"],
+    img: "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "10s",
+    brand: "Gosha Rubchinskiy",
+    name: "Soviet Track Jacket\n& Youth Culture",
+    season: "FW 2016 — Post-Soviet Aesthetic",
+    desc: "고샤 루브친스키는 소련 붕괴 이후 러시아 청년들의 <strong>길거리 문화</strong>를 런웨이로 가져왔다. 트랙 재킷과 키릴 문자 그래픽은 서구 중심의 패션 판도를 흔들었다. 글로컬리즘의 가장 진정성 있는 표현.",
+    tags: ["Streetwear", "Cultural", "20–35s"],
+    img: "https://images.unsplash.com/photo-1509960740873-e1d4e4861ac6?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "10s",
+    brand: "Off-White",
+    name: "Zip-Tie Converse\n& Industrial Belt",
+    season: "SS 2017 — Virgil Abloh",
+    desc: "버질 아블로의 <strong>집 타이 컨버스</strong>는 3%의 차이로 새것을 만든다는 철학의 결정판이었다. 노란 산업용 케이블 타이 하나로 스니커를 럭셔리로 바꾼 순간, 스트리트웨어와 하이패션의 경계가 공식 소멸했다.",
+    tags: ["Footwear", "Streetwear", "20–35s"],
+    img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "10s",
+    brand: "Jacquemus",
+    name: "Le Chiquito\nMini Bag",
+    season: "SS 2019 — Simon Porte Jacquemus",
+    desc: "손바닥 위에 올라오는 <strong>르 시키토 백</strong>은 기능을 포기하고 미학만을 남긴 오브젝트다. 프로방스 출신 시몽 포르트 자크뮈스의 남프랑스 햇살이 담긴 디자인. 인스타그램 시대의 가장 완벽한 아이콘.",
+    tags: ["Bag", "Minimal", "20–35s"],
+    img: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&q=85&fit=crop&crop=top"
+  },
+
+  /* ── 2020s ── */
+  {
+    era: "20s",
+    brand: "Miu Miu",
+    name: "Ultra Micro Skirt\n& Crop Top",
+    season: "FW 2022 — Viral Moment",
+    desc: "허리선 아래로 아슬아슬하게 걸친 <strong>울트라 마이크로 스커트</strong>는 2022년 인터넷 전체를 강타했다. 미우 미우는 Y2K 리바이벌을 주도하며 20대 초반을 패션의 중심으로 끌어들였다. 도발적이면서 섬세하다.",
+    tags: ["Skirt", "Y2K Revival", "20–30s"],
+    img: "https://images.unsplash.com/photo-1532453288672-3a54eb4a3fe4?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "20s",
+    brand: "Toteme",
+    name: "Scarf Coat\n& Quiet Luxury",
+    season: "FW 2023 — Elin Kling",
+    desc: "엘린 클링의 <strong>스카프 코트</strong>는 #quietluxury 해시태그를 이끈 진원지였다. 코트와 스카프가 하나로 합쳐진 이 디자인은 과시하지 않는 부유함을 가장 기능적으로 표현한다. 스웨덴 미니멀리즘의 현재.",
+    tags: ["Outerwear", "Minimal", "25–45s"],
+    img: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "20s",
+    brand: "Nensi Dojaka",
+    name: "Cut-Out\nEthereal Dress",
+    season: "SS 2022 — LVMH Prize Winner",
+    desc: "알바니아 출신 넨시 도야카의 <strong>컷아웃 드레스</strong>는 노출의 새로운 문법을 썼다. 단순히 드러내는 것이 아닌, 숨기는 것과 보여주는 것 사이의 긴장감으로 만드는 관능미. LVMH 프라이즈 수상 후 차세대를 이끌었다.",
+    tags: ["Dress", "Ethereal", "20–35s"],
+    img: "https://images.unsplash.com/photo-1512361436605-a484bdb34b5f?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "20s",
+    brand: "Coperni",
+    name: "Spray-On Dress\n(Bella Hadid)",
+    season: "SS 2023 — Live Performance",
+    desc: "벨라 하디드의 몸 위에 직접 스프레이를 뿌려 완성된 <strong>스프레이 드레스</strong>는 패션쇼를 퍼포먼스 아트로 끌어올린 사건이었다. 소재 기술과 쇼맨십의 정점. 2023년 가장 많이 회자된 패션 순간.",
+    tags: ["Innovation", "Statement", "20–35s"],
+    img: "https://images.unsplash.com/photo-1583846783214-7229a91b20ed?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "20s",
+    brand: "Auralee",
+    name: "Supima Cotton\nOversized Shirt",
+    season: "SS 2024 — Ryota Iwai",
+    desc: "이와이 료타의 <strong>오라리</strong>는 일본 정밀 제조업의 옷 버전이다. 슈피마 코튼을 더 가늘게 방적하고 더 단단히 직조해 만드는 이 셔츠는 입을수록 좋아진다. 화제성 없이 조용히 가장 많이 재구매되는 브랜드.",
+    tags: ["Shirt", "Japanese", "25–40s"],
+    img: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=800&q=85&fit=crop&crop=top"
+  },
+
+  /* ── Timeless ── */
+  {
+    era: "Timeless",
+    brand: "Hermès",
+    name: "Leather Trench\n& Kelly 25",
+    season: "Timeless — Iconic Piece",
+    desc: "크리스토발 발렌시아가가 '유일하게 진짜 쿠튀리에'라 불렀던 에르메스의 <strong>가죽 트렌치</strong>. 켈리 25와의 조합은 절제된 럭셔리의 정의를 완성한다. 소재의 질감이 시간이 지날수록 더 깊어지는, 물려줄 수 있는 아이템.",
+    tags: ["Leather", "Heritage", "30–50s"],
+    img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "Timeless",
+    brand: "Bottega Veneta",
+    name: "Trompe-l'œil\nDenim Jacket",
+    season: "SS 2022 — Matthieu Blazy Debut",
+    desc: "마테우 블라지가 보테가를 맡은 첫 시즌, <strong>트롱프뢰유 기법</strong>으로 청바지를 가죽으로 재현한 룩은 패션계를 뒤집었다. 인트레치아토 위빙의 촉각적 완성도와 함께, '조용한 럭셔리'의 새 기준을 세웠다.",
+    tags: ["Leather", "Craft", "25–45s"],
+    img: "https://images.unsplash.com/photo-1529139574466-a303027614b2?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "Timeless",
+    brand: "Rick Owens",
+    name: "Geobasket &\nDraped Long Coat",
+    season: "FW 2014 — Vicious",
+    desc: "릭 오웬스의 <strong>기오바스켓</strong>은 단순한 스니커가 아닌 조각품이다. 두꺼운 크레이프 솔과 드레이핑 코트의 조합은 어둠 속에서 건축적 실루엣을 만든다. 반복 착용할수록 주인의 몸에 맞춰가는 아이템.",
+    tags: ["Footwear", "Avant-garde", "20–40s"],
+    img: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "Timeless",
+    brand: "Lemaire",
+    name: "Croissant Bag\n& Relaxed Coat",
+    season: "FW 2023 — Main Collection",
+    desc: "크리스토프 르메르의 <strong>크루아상 백</strong>은 파리의 아침을 닮았다. 꾸미지 않은 듯한 드레이핑 코트와의 조합은 '노력하지 않은 것처럼 보이는 노력'의 진수. 20년 후에도 어색하지 않을 타임리스 아이템.",
+    tags: ["Bag", "Outerwear", "25–40s"],
+    img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "Timeless",
+    brand: "Loewe",
+    name: "Balloon Leather\nTrousers",
+    season: "SS 2023 — Jonathan Anderson",
+    desc: "조나단 앤더슨이 발표한 순간 인터넷을 점령한 <strong>벌룬 트라우저</strong>. 공기를 담은 것처럼 팽창된 가죽 실루엣은 웃음과 경외를 동시에 자아낸다. 공예와 유머가 공존할 때 패션은 예술이 된다는 걸 증명한 피스.",
+    tags: ["Leather", "Statement", "20–35s"],
+    img: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "Timeless",
+    brand: "The Row",
+    name: "Margaux Bag\n& Cashmere Coat",
+    season: "FW 2024 — Olsen Sisters",
+    desc: "메리-케이트와 애슐리 올슨이 만든 <strong>더 로우</strong>는 로고 없는 럭셔리의 정점이다. 마르고 백의 매끈한 가죽과 오버사이즈 캐시미어 코트의 조합은 '가진 자의 침묵'을 옷으로 번역한 결과물.",
+    tags: ["Bag", "Cashmere", "30–50s"],
+    img: "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "Timeless",
+    brand: "Issey Miyake",
+    name: "Pleats Please\nHommé Plissé",
+    season: "Permanent — A-POC Universe",
+    desc: "이세이 미야케의 <strong>플리츠 플리즈</strong>는 기술과 미학의 화해다. 폴리에스테르 소재를 열압착 처리한 주름은 아무리 구겨도 형태로 돌아온다. 한 벌이 수백 가지 표정을 가진, 입는 건축.",
+    tags: ["Pleats", "Technical", "20–50s"],
+    img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "Timeless",
+    brand: "Maison Margiela",
+    name: "Tabi Boot &\nDeconstructed Coat",
+    season: "FW 1989 — Original Tabi",
+    desc: "발굽을 닮은 <strong>타비 부츠</strong>는 1989년 마르지엘라가 처음 선보인 후 30년 넘게 유효하다. 해체된 코트의 드러난 솔기와 함께, 이 조합은 '옷이란 무엇인가'라는 질문을 신는 것만으로 던진다.",
+    tags: ["Footwear", "Artisanal", "25–45s"],
+    img: "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "Timeless",
+    brand: "Dries Van Noten",
+    name: "Embroidered\nSilk Ensemble",
+    season: "SS 2023 — Final Solo Season",
+    desc: "드리스 반 노튼 특유의 <strong>보태니컬 프린트</strong>와 정교한 자수가 어우러진 실크 앙상블. 오리엔탈리즘과 유러피안 클래시즘이 교차하는 지점에서 탄생했다. 보는 각도마다 달라지는 <strong>빛의 유희</strong>가 인상적이다.",
+    tags: ["Ensemble", "Silk", "30–50s"],
+    img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "Timeless",
+    brand: "Prada",
+    name: "Re-Nylon\nOversize Trench",
+    season: "SS 2026 — Runway Collection",
+    desc: "미우치아 프라다의 <strong>지적 미니멀리즘</strong>이 집약된 오버사이즈 트렌치. 리사이클 나일론 소재가 구조적인 실루엣을 유지하면서도 가볍게 떨어진다. 어깨선을 의도적으로 흘러내리게 처리해 <strong>힘을 뺀 럭셔리</strong>를 완성한다.",
+    tags: ["Outerwear", "Unisex", "20–40s"],
+    img: "https://images.unsplash.com/photo-1544441893-675973e31985?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    era: "Timeless",
+    brand: "Jil Sander",
+    name: "Tailored Wool\nTrouser Suit",
+    season: "FW 2020 — Luke & Lucie Meier",
+    desc: "루크 & 루시 마이어 시대의 <strong>질 샌더 수트</strong>는 미니멀리즘의 재정의다. 군더더기 없이 떨어지는 울 소재와 정직한 절개선만으로 몸의 형태를 가장 아름답게 제안한다. 모든 잡음을 제거했을 때 남는 것.",
+    tags: ["Suiting", "Minimal", "25–45s"],
+    img: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=800&q=85&fit=crop&crop=top"
+  }
+];
+
+/* ══════════════════════════════════════════
+   STATE
+══════════════════════════════════════════ */
+const grid      = document.getElementById('picksGrid');
+const counter   = document.getElementById('poolCounter');
+const shuffleBtn = document.getElementById('shuffleBtn');
+
+let activeEra   = 'all';
+let cursors     = {}; // per-era cursor
+
+// Date-seeded shuffle
+function seededShuffle(arr, seed) {
+  const a = [...arr.keys()];
+  let s = seed;
+  for (let i = a.length - 1; i > 0; i--) {
+    s = (s * 1664525 + 1013904223) >>> 0;
+    const j = s % (i + 1);
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const today   = new Date();
+const daySeed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+
+// Per-era shuffled index arrays
+const ERAS = ['all', '90s', '00s', '10s', '20s', 'Timeless'];
+const shuffledIndexes = {};
+ERAS.forEach(era => {
+  const indices = POOL
+    .map((item, i) => ({ item, i }))
+    .filter(({ item }) => era === 'all' || item.era === era)
+    .map(({ i }) => i);
+  const order = seededShuffle(indices, daySeed + era.charCodeAt(0));
+  shuffledIndexes[era] = order;
+  cursors[era] = 0;
+});
+
+function getNextThree() {
+  const pool  = shuffledIndexes[activeEra];
+  const items = [];
+  for (let i = 0; i < 3; i++) {
+    items.push(POOL[pool[(cursors[activeEra] + i) % pool.length]]);
+  }
+  cursors[activeEra] = (cursors[activeEra] + 3) % pool.length;
+  return items;
+}
+
+/* ══════════════════════════════════════════
+   RENDER
+══════════════════════════════════════════ */
+function buildCard(item, num) {
+  const lines = item.name.split('\n');
+  const el = document.createElement('article');
+  el.className = 'card';
+  el.innerHTML = `
+    <div class="card-inner">
+      <div class="card-header">
+        <div class="card-header-left">
+          <p class="card-brand">${item.brand}</p>
+          <h2 class="card-name">${lines.join('<br>')}</h2>
+        </div>
+        <span class="era-badge" data-era="${item.era}">${item.era}</span>
+      </div>
+      <div class="card-img-wrap">
+        <img src="${item.img}" alt="${item.brand} — ${lines[0]}" loading="lazy" />
+        <span class="card-index">0${num}</span>
+      </div>
+      <div class="card-body">
+        <p class="card-season">${item.season}</p>
+        <p class="card-desc">${item.desc}</p>
+        <div class="card-tags">${item.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      </div>
+    </div>`;
+  return el;
+}
+
+function snapIn(cards) {
+  cards.forEach((card, i) => {
+    grid.appendChild(card);
+    requestAnimationFrame(() => {
+      setTimeout(() => card.classList.add('snap'), i * 300 + 20);
+    });
+  });
+}
+
+function renderItems(items) {
+  const cards = items.map((item, i) => buildCard(item, i + 1));
+  snapIn(cards);
+  attachTilt(cards);
+  updateCounter();
+}
+
+function updateCounter() {
+  const pool  = shuffledIndexes[activeEra];
+  const cur   = cursors[activeEra];
+  const shown = cur === 0 ? pool.length : cur;
+  counter.textContent = `${shown} / ${pool.length} items viewed`;
+}
+
+/* ══════════════════════════════════════════
+   TILT
+══════════════════════════════════════════ */
+function attachTilt(cards) {
+  cards.forEach(card => {
+    const inner = card.querySelector('.card-inner');
+    card.addEventListener('mousemove', e => {
+      const r  = card.getBoundingClientRect();
+      const rx = ((e.clientY - r.top)  / r.height - 0.5) * -10;
+      const ry = ((e.clientX - r.left) / r.width  - 0.5) *  10;
+      inner.style.transform = `translateY(-10px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    });
+    card.addEventListener('mouseleave', () => { inner.style.transform = ''; });
+  });
+}
+
+/* ══════════════════════════════════════════
+   SHUFFLE
+══════════════════════════════════════════ */
+function swap(incoming) {
+  shuffleBtn.disabled = true;
+  const existing = [...grid.querySelectorAll('.card')];
+
+  existing.forEach((c, i) => setTimeout(() => c.classList.add('exit'), i * 55));
+
+  setTimeout(() => {
+    grid.innerHTML = '';
+    renderItems(incoming);
+    setTimeout(() => { shuffleBtn.disabled = false; }, 1100);
+  }, existing.length * 55 + 320);
+}
+
+shuffleBtn.addEventListener('click', () => swap(getNextThree()));
+
+/* ══════════════════════════════════════════
+   ERA FILTER
+══════════════════════════════════════════ */
+document.getElementById('eraFilter').addEventListener('click', e => {
+  const btn = e.target.closest('.era-btn');
+  if (!btn) return;
+
+  document.querySelectorAll('.era-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeEra = btn.dataset.era;
+
+  swap(getNextThree());
+});
+
+/* ══════════════════════════════════════════
+   INIT
+══════════════════════════════════════════ */
+document.getElementById('today-date').textContent =
+  today.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+
+renderItems(getNextThree());
+</script>
+
+</body>
+</html>
