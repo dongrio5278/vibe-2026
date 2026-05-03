@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git push *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "WebFetch(domain:permanent-external-records.com)",
+      "WebFetch(domain:www.ssg.com)",
+      "WebFetch(domain:commons.wikimedia.org)",
+      "WebFetch(domain:en.wikipedia.org)",
+      "WebSearch",
+      "WebFetch(domain:unsplash.com)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{content_type}\" -L \"https://upload.wikimedia.org/wikipedia/commons/a/a5/Platos_Atlantis_at_Savage_Beauty_%28cropped_to_shoes%29.jpg\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{content_type}\" -L \"https://upload.wikimedia.org/wikipedia/commons/6/6f/Red_Crocodile_Kelly_Bag.jpg\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{content_type}\" -L \"https://upload.wikimedia.org/wikipedia/commons/9/9d/Yohji_Yamamoto_wool_suit_c_1990.jpg\")",
+      "Bash(curl -sL \"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=85&fit=crop&crop=top\" -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -sL \"https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=85&fit=crop&crop=top\" -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -sL \"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=85&fit=crop&crop=top\" -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://upload.wikimedia.org/wikipedia/commons/7/75/Lumps_and_Bumps%2C_Collection_SS_1997._Comme_des_Gar%C3%A7ons.jpg\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://upload.wikimedia.org/wikipedia/commons/0/0b/Lumps_and_Bumps%2C_Collection_SS_1997._Comme_des_Gar%C3%A7ons_2.jpg\")",
+      "Bash(curl -s \"https://commons.wikimedia.org/wiki/Special:Search?search=raf+simons+jacket+archive&ns6=1\")",
+      "Bash(curl -s \"https://commons.wikimedia.org/wiki/Special:Search?search=balenciaga+motorcycle+city+bag&ns6=1\")",
+      "Bash(curl -s \"https://commons.wikimedia.org/wiki/Special:Search?search=supreme+box+logo+hoodie&ns6=1\")",
+      "Bash(curl -s \"https://commons.wikimedia.org/wiki/Special:Search?search=miu+miu+mini+skirt&ns6=1\")",
+      "Bash(curl -s \"https://commons.wikimedia.org/wiki/Special:Search?search=prada+nylon+bag+re-edition&ns6=1\")",
+      "Bash(curl -s \"https://commons.wikimedia.org/wiki/Special:Search?search=rick+owens+shoes+geobasket&ns6=1\")",
+      "Bash(curl -s \"https://commons.wikimedia.org/wiki/Special:Search?search=issey+miyake+pleats+please&ns6=1\")",
+      "Bash(curl -s \"https://commons.wikimedia.org/wiki/Special:Search?search=helmut+lang+jacket+archive&ns6=1\")",
+      "Bash(git pull *)",
+      "Bash(git fetch *)",
+      "Bash(git ls-tree *)",
+      "Bash(grep -v \"^index.html$\")"
+    ]
+  }
+}

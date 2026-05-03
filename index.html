@@ -397,6 +397,16 @@
       color: rgba(255,255,255,0.35);
       z-index: 2;
     }
+    .card-credit {
+      position: absolute;
+      bottom: 8px;
+      right: 10px;
+      font-size: 8px;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.28);
+      z-index: 2;
+      font-style: italic;
+    }
     .card-read {
       position: absolute;
       bottom: 14px;
@@ -619,13 +629,14 @@ const POOL = [
     img:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"cloth", type:"Outerwear",
-    brand:"Prada", name:"Re-Nylon\nOversize Trench",
-    season:"SS 2026 — Runway",
+    cat:"cloth", type:"Ensemble",
+    brand:"Prada", name:"Knit & Trouser\nEnsemble",
+    season:"SS 2026 — Men's Runway",
     why:"지적 과잉과 지적 절제 사이, 프라다만이 서 있는 자리",
-    desc:"미우치아 프라다의 <strong>리사이클 나일론 트렌치</strong>는 구조적 실루엣을 유지하면서도 가볍게 떨어진다. 어깨선을 의도적으로 흘러내리게 처리해 '힘을 뺀 럭셔리'를 완성한다. 패션계에서 가장 일관된 지성이 만드는 옷.",
-    tags:["Outerwear","Unisex","2026"],
-    img:"https://images.unsplash.com/photo-1544441893-675973e31985?w=800&q=85&fit=crop&crop=top"
+    desc:"라프 시몬스와 미우치아 프라다가 함께한 SS26. <strong>네이비 니트 위로 삐져나온 핑크 셔츠 커프</strong>, 블랙 와이드 트라우저의 조합은 프라다 특유의 지적 충돌을 완성한다. 과하지도 부족하지도 않은 남성복의 새 언어.",
+    tags:["Ensemble","Menswear","SS26"],
+    img:"./images/IMG_1671.jpeg",
+    credit:"© Prada SS26 Runway"
   },
   {
     cat:"cloth", type:"Tops",
@@ -920,6 +931,7 @@ function buildCard(item, num) {
         <img src="${item.img}" alt="${item.brand}" loading="lazy"/>
         <span class="card-num">0${num}</span>
         <span class="card-read">자세히 보기 →</span>
+        ${item.credit ? `<span class="card-credit">${item.credit}</span>` : ''}
       </div>
       <div class="card-body">
         <p class="card-season">${item.season}</p>
