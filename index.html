@@ -500,9 +500,9 @@
 
   <div class="filter-row" id="filterRow">
     <button class="filter-btn active" data-cat="all">All</button>
-    <button class="filter-btn" data-cat="korean">Korean</button>
-    <button class="filter-btn" data-cat="archive">Archive</button>
-    <button class="filter-btn" data-cat="now">Now</button>
+    <button class="filter-btn" data-cat="cloth">Cloth</button>
+    <button class="filter-btn" data-cat="accessory">Accessory</button>
+    <button class="filter-btn" data-cat="icon">Icon</button>
   </div>
 
   <div class="shuffle-wrap">
@@ -523,40 +523,40 @@
 
 <script>
 /* ══════════════════════════
-   POOL  (36 items)
+   POOL  (35 items)
 ══════════════════════════ */
 const POOL = [
 
-  /* ── KOREAN ── */
+  /* ── CLOTH ── */
   {
-    cat:"korean", type:"Tailoring",
+    cat:"cloth", type:"Tailoring",
     brand:"KANGJUNGSEOK", name:"Structured\nDouble-Breasted Blazer",
     season:"FW 2023 — Seoul Collection",
     why:"한국 테일러링의 새로운 문법을 제시한 재킷",
     desc:"강정석 특유의 <strong>구조적 더블 브레스트</strong>는 클래식 테일러링을 해체하지 않고 정면 돌파한다. 패딩 없이 어깨의 형태를 잡는 방식, 과장되지 않은 라펠의 비율이 한국 현대 남성복의 기준이 됐다. 서울에서 가장 많이 복기되는 실루엣.",
     tags:["Tailoring","Menswear","Seoul"],
-    img:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=85&fit=crop&crop=top"
+    img:"https://images.unsplash.com/photo-1603189343302-e603f7add05a?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"korean", type:"Outerwear",
+    cat:"cloth", type:"Outerwear",
     brand:"HYEIN SEO", name:"Utility Harness\nJacket",
     season:"FW 2022 — RCA Graduate",
     why:"서울에서 태어나 런던에서 완성된 미래적 유틸리티",
     desc:"혜인서는 영국 왕립예술학교에서 자신만의 언어를 찾았다. <strong>하네스 구조</strong>와 유틸리티 포켓이 결합된 이 재킷은 기능이 곧 장식임을 증명한다. K-패션 중 드물게 국제 컨셉추얼 씬의 언어를 구사하는 브랜드.",
     tags:["Utility","Womenswear","London/Seoul"],
-    img:"https://images.unsplash.com/photo-1529139574466-a303027614b2?w=800&q=85&fit=crop&crop=top"
+    img:"https://images.unsplash.com/photo-1613915617430-8ab0fd7c6baf?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"korean", type:"Outerwear",
+    cat:"cloth", type:"Outerwear",
     brand:"WOOYOUNGMI", name:"Tailored Single-\nBreasted Coat",
     season:"FW 2024 — Paris Menswear",
     why:"파리를 입은 한국 남자의 옷",
     desc:"우영미는 파리 남성복 주간에 정식 초청된 최초의 한국 디자이너다. 섬세하게 계산된 <strong>오버사이즈 코트</strong>의 라인은 유럽 테일러링과 동양적 여백의 미학을 교차시킨다. 30년 가까이 일관된 브랜드 철학을 유지하는 몇 안 되는 한국 하우스.",
     tags:["Tailoring","Menswear","Paris/Seoul"],
-    img:"https://images.unsplash.com/photo-1513094775335-ade570c75b33?w=800&q=85&fit=crop&crop=top"
+    img:"https://images.unsplash.com/photo-1645561305502-63a9ba09ab09?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"korean", type:"Outerwear",
+    cat:"cloth", type:"Outerwear",
     brand:"JUUN.J", name:"Architectural\nDeconstructed Trench",
     season:"SS 2023 — Paris Fashion Week",
     why:"건축이 옷이 됐을 때 가장 강렬한 실루엣",
@@ -565,7 +565,7 @@ const POOL = [
     img:"https://images.unsplash.com/photo-1573600073955-f15b3b6caab7?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"korean", type:"Knitwear",
+    cat:"cloth", type:"Knitwear",
     brand:"ADER ERROR", name:"Deformed Logo\nOversize Sweater",
     season:"FW 2021 — Seoul / Paris",
     why:"오류를 디자인 언어로 삼은 서울의 목소리",
@@ -574,7 +574,7 @@ const POOL = [
     img:"https://images.unsplash.com/photo-1516762689617-e1cffcef479d?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"korean", type:"Bottoms",
+    cat:"cloth", type:"Bottoms",
     brand:"müdule", name:"Cupro Lounge\nPants",
     season:"FW 2023 — PER Platform",
     why:"옷을 모듈처럼 조합하는 서울의 타임리스 언어",
@@ -582,28 +582,8 @@ const POOL = [
     tags:["Bottoms","Genderless","Seoul 2019"],
     img:"https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=800&q=85&fit=crop&crop=top"
   },
-
-  /* ── ARCHIVE ── */
   {
-    cat:"archive", type:"Outerwear",
-    brand:"Raf Simons", name:"'Consumed'\nPatched Jacket",
-    season:"FW 2002 — Riot Riot Riot",
-    why:"청춘의 분노가 처음으로 런웨이 위에서 말을 걸었다",
-    desc:"라프 시몬스의 FW2002 'Riot Riot Riot' 컬렉션은 청소년 문화, 반항, 그리고 소비주의를 패치워크 재킷 한 벌에 압축했다. <strong>세라믹 원단 위의 사진 패치</strong>들은 지금도 아카이브 시장 최고가를 경신한다. 스트리트웨어가 하이패션이 될 수 있음을 처음 증명한 순간.",
-    tags:["Archive","Iconic","20–35s"],
-    img:"https://images.unsplash.com/photo-1576987095867-4d3b05a6a33f?w=800&q=85&fit=crop&crop=top"
-  },
-  {
-    cat:"archive", type:"Tops",
-    brand:"Comme des Garçons", name:"'Body Meets Dress'\nPadded Jacket",
-    season:"FW 1997 — Rei Kawakubo",
-    why:"몸의 해방선언, 옷의 조각화",
-    desc:"레이 카와쿠보가 1997년 발표한 이 컬렉션은 패션계를 충격에 빠뜨렸다. 혹처럼 돌출된 <strong>패딩 범프</strong>들은 서양 미의 기준인 허리와 어깨를 무력화시켰다. 패션이 예술과 완전히 동격이 됐음을 선언한 작품이자, 지금도 모든 아방가르드 디자이너의 교과서.",
-    tags:["Avant-garde","Iconic","Archive"],
-    img:"https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&q=85&fit=crop&crop=top"
-  },
-  {
-    cat:"archive", type:"Outerwear",
+    cat:"cloth", type:"Outerwear",
     brand:"Number (N)ine", name:"Distressed\nMotorcycle Jacket",
     season:"FW 2004 — Takahiro Miyashita",
     why:"일본 특유의 멜랑꼴리가 가죽에 새겨지다",
@@ -612,16 +592,16 @@ const POOL = [
     img:"https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"archive", type:"Outerwear",
+    cat:"cloth", type:"Outerwear",
     brand:"Yohji Yamamoto", name:"Asymmetric\nBlack Volume Coat",
     season:"FW 1997 — Y's Philosophy",
     why:"검정은 색이 아닌 철학이다",
     desc:"요지 야마모토의 <strong>검정</strong>은 단색이 아닌 태도다. 비대칭으로 끊어진 헴라인, 몸을 감쌌다 갑자기 열리는 구조는 동서양 미학이 충돌하는 지점이다. '어떻게 입었는가'보다 '어떻게 있었는가'를 묻는, 몇 안 되는 옷.",
     tags:["Avant-garde","Volume","Archive"],
-    img:"https://images.unsplash.com/photo-1576987095867-4d3b05a6a33f?w=800&q=85&fit=crop&crop=top"
+    img:"https://upload.wikimedia.org/wikipedia/commons/9/9d/Yohji_Yamamoto_wool_suit_c_1990.jpg"
   },
   {
-    cat:"archive", type:"Tops",
+    cat:"cloth", type:"Tops",
     brand:"Helmut Lang", name:"Deconstructed\nLeather Jacket",
     season:"FW 1998 — Vienna Minimalism",
     why:"솔기를 드러내는 것이 곧 진실이다",
@@ -630,25 +610,7 @@ const POOL = [
     img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"archive", type:"Footwear",
-    brand:"Alexander McQueen", name:"Armadillo Shoes\n& Plato's Atlantis",
-    season:"SS 2010 — Final Collection",
-    why:"패션이 비극이 될 때 가장 아름답다",
-    desc:"리 알렉산더 맥퀸의 마지막 완성 컬렉션 '플라톤의 아틀란티스'. <strong>아르마딜로 슈즈</strong>는 발이 신을 수 있는 조각품이었고, 컬렉션 전체는 그가 세상을 떠나기 직전 자연과 인간의 경계에 대한 마지막 발언이었다.",
-    tags:["Footwear","Theatrical","Archive"],
-    img:"https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800&q=85&fit=crop&crop=top"
-  },
-  {
-    cat:"archive", type:"Footwear",
-    brand:"Maison Margiela", name:"Original Tabi Boot\n1989",
-    season:"FW 1989 — Martin Margiela",
-    why:"발굽이 질문을 던진다: 이것은 신발인가 조각인가",
-    desc:"1989년 마르지엘라가 처음 선보인 <strong>타비 부츠</strong>는 30년이 지난 지금도 복각되고 사랑받는다. 발가락 사이를 가르는 분리된 앞코는 일본 전통 버선에서 온 아이디어다. 신발 하나가 '옷이란 무엇인가'라는 질문을 던진다.",
-    tags:["Footwear","Iconic","Archive"],
-    img:"https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?w=800&q=85&fit=crop&crop=top"
-  },
-  {
-    cat:"archive", type:"Tops",
+    cat:"cloth", type:"Tops",
     brand:"Ann Demeulemeester", name:"White Shirt &\nDark Drape",
     season:"SS 1999 — Antwerp Six",
     why:"낭만과 강인함은 모순이 아니다",
@@ -657,27 +619,7 @@ const POOL = [
     img:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"archive", type:"Bag",
-    brand:"Celine", name:"Trapeze Bag\n(Phoebe Philo)",
-    season:"SS 2011 — Phoebe Philo Era",
-    why:"여성이 스스로를 위해 입는 옷을 발명한 순간",
-    desc:"피비 파일로의 셀린느는 <strong>페미니스트 럭셔리</strong>를 발명했다. 트라페즈 백은 복잡하지 않지만 완벽한 비율로, '지적인 여성이 무엇을 드는가'에 답했다. 팬들이 스스로를 부르는 신조어 'Philophile'은 그 영향력의 크기다.",
-    tags:["Bag","Minimal","Archive"],
-    img:"https://images.unsplash.com/photo-1594938298603-c8148c4b4e4e?w=800&q=85&fit=crop&crop=top"
-  },
-  {
-    cat:"archive", type:"Bag",
-    brand:"Balenciaga", name:"Motorcycle Bag\n(Nicolas Ghesquière)",
-    season:"FW 2001 — The Motor",
-    why:"록의 정신을 핸드백으로 번역하다",
-    desc:"니콜라 게스키에르가 발렌시아가를 혁신한 <strong>모터 백</strong>은 2000년대를 정의했다. 지퍼, 스터드, 가는 끈이 얽힌 구조는 록과 쿠튀르의 교차점이었다. 매거진마다 대기자 명단이 넘쳤던, 핸드백 역사의 결정적 챕터.",
-    tags:["Bag","Iconic","Archive"],
-    img:"https://images.unsplash.com/photo-1581044777550-4cfa63707723?w=800&q=85&fit=crop&crop=top"
-  },
-
-  /* ── NOW ── */
-  {
-    cat:"now", type:"Outerwear",
+    cat:"cloth", type:"Outerwear",
     brand:"Prada", name:"Re-Nylon\nOversize Trench",
     season:"SS 2026 — Runway",
     why:"지적 과잉과 지적 절제 사이, 프라다만이 서 있는 자리",
@@ -686,25 +628,16 @@ const POOL = [
     img:"https://images.unsplash.com/photo-1544441893-675973e31985?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"now", type:"Bag",
-    brand:"Hermès", name:"Kelly 25\n& Leather Trench",
-    season:"Timeless — Heritage",
-    why:"가장 사치스러운 것은 시간이고, 그것이 옷이 됐다",
-    desc:"크리스토발 발렌시아가가 '유일하게 진짜 쿠튀리에'라 불렀던 에르메스의 <strong>가죽 트렌치</strong>. 켈리 25와의 조합은 절제된 럭셔리의 정의를 완성한다. 소재의 질감이 시간이 지날수록 더 깊어지는, 물려줄 수 있는 아이템.",
-    tags:["Bag","Heritage","30–50s"],
-    img:"https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=85&fit=crop&crop=top"
-  },
-  {
-    cat:"now", type:"Tops",
+    cat:"cloth", type:"Tops",
     brand:"Bottega Veneta", name:"Trompe-l'œil\nDenim Jacket",
     season:"SS 2022 — Matthieu Blazy",
     why:"가죽이 청바지를 흉내낼 때 패션의 경계가 사라진다",
     desc:"마테우 블라지의 보테가 데뷔 시즌. <strong>트롱프뢰유 기법</strong>으로 청바지를 가죽으로 재현한 이 재킷은 패션계를 뒤집었다. 인트레치아토 위빙의 촉각적 완성도와 함께, '조용한 럭셔리'의 새 기준을 세운 피스.",
     tags:["Leather","Craft","SS22"],
-    img:"https://images.unsplash.com/photo-1529139574466-a303027614b2?w=800&q=85&fit=crop&crop=top"
+    img:"https://images.unsplash.com/photo-1608748010899-18f300247112?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"now", type:"Bottoms",
+    cat:"cloth", type:"Bottoms",
     brand:"Loewe", name:"Balloon Leather\nTrousers",
     season:"SS 2023 — Jonathan Anderson",
     why:"공기를 가죽으로 채웠을 때 우리는 웃으면서 경외한다",
@@ -713,34 +646,7 @@ const POOL = [
     img:"https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"now", type:"Footwear",
-    brand:"Rick Owens", name:"Geobasket\nPlatform Sneaker",
-    season:"FW 2014 — Vicious",
-    why:"어둠 속에서 가장 건축적인 실루엣",
-    desc:"릭 오웬스의 <strong>기오바스켓</strong>은 단순한 스니커가 아닌 조각품이다. 두꺼운 크레이프 솔이 만드는 건축적 형태는 착용자를 2~3cm 높여주는 것 이상의 존재감을 부여한다. 반복 착용할수록 주인의 몸에 맞춰가는, 살아있는 오브젝트.",
-    tags:["Footwear","Avant-garde","Unisex"],
-    img:"https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=85&fit=crop&crop=top"
-  },
-  {
-    cat:"now", type:"Bag",
-    brand:"The Row", name:"Margaux Bag\n& Cashmere Coat",
-    season:"FW 2024 — Olsen Sisters",
-    why:"침묵이 가장 큰 목소리를 낼 때",
-    desc:"메리-케이트와 애슐리 올슨이 만든 <strong>더 로우</strong>는 로고 없는 럭셔리의 정점이다. 마르고 백의 매끈한 가죽과 오버사이즈 캐시미어 코트의 조합은 '가진 자의 침묵'을 옷으로 번역한 결과물.",
-    tags:["Bag","Quiet Luxury","30–50s"],
-    img:"https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?w=800&q=85&fit=crop&crop=top"
-  },
-  {
-    cat:"now", type:"Bag",
-    brand:"Lemaire", name:"Croissant Bag\n& Relaxed Coat",
-    season:"FW 2023 — Christophe Lemaire",
-    why:"파리의 아침 공기가 담긴 가방",
-    desc:"크리스토프 르메르의 <strong>크루아상 백</strong>은 파리의 아침을 닮았다. 꾸미지 않은 듯한 드레이핑 코트와의 조합은 '노력하지 않은 것처럼 보이는 노력'의 진수. 20년 후에도 어색하지 않을 타임리스 아이템.",
-    tags:["Bag","Outerwear","Timeless"],
-    img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&q=85&fit=crop&crop=top"
-  },
-  {
-    cat:"now", type:"Outerwear",
+    cat:"cloth", type:"Outerwear",
     brand:"Sacai", name:"Hybrid Trench\nBlazer",
     season:"SS 2024 — Chitose Abe",
     why:"하나이면서 둘인 옷의 역설",
@@ -749,26 +655,8 @@ const POOL = [
     img:"https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"now", type:"Bag",
-    brand:"Jacquemus", name:"Le Chiquito\nMini Bag",
-    season:"SS 2019 — Simon Porte Jacquemus",
-    why:"기능을 포기했을 때 비로소 가장 아름다워졌다",
-    desc:"손바닥 위에 올라오는 <strong>르 시키토 백</strong>은 기능을 포기하고 미학만을 남긴 오브젝트다. 프로방스 출신 시몽 포르트 자크뮈스의 남프랑스 햇살이 담긴 디자인. 인스타그램 시대의 가장 완벽한 패션 아이콘.",
-    tags:["Bag","Minimal","Iconic"],
-    img:"https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&q=85&fit=crop&crop=top"
-  },
-  {
-    cat:"now", type:"Bottoms",
-    brand:"Miu Miu", name:"Ultra Micro\nSkirt",
-    season:"FW 2022 — Miuccia Prada",
-    why:"미니스커트는 언제나 혁명이다",
-    desc:"허리선 아래로 아슬아슬하게 걸친 <strong>울트라 마이크로 스커트</strong>는 2022년 인터넷 전체를 강타했다. 미우 미우는 Y2K 리바이벌을 주도하며 20대 초반을 패션의 중심으로 끌어들였다. 도발적이면서 섬세한, 동시대 가장 화제적인 아이템.",
-    tags:["Bottoms","Y2K","Womenswear"],
-    img:"https://images.unsplash.com/photo-1532453288672-3a54eb4a3fe4?w=800&q=85&fit=crop&crop=top"
-  },
-  {
-    cat:"now", type:"Outerwear",
-    brand:"Toteme", name:"Scarf Coat\n",
+    cat:"cloth", type:"Outerwear",
+    brand:"Toteme", name:"Scarf Coat",
     season:"FW 2023 — Elin Kling",
     why:"과시하지 않는 방식으로 모든 것을 말하다",
     desc:"엘린 클링의 <strong>스카프 코트</strong>는 #quietluxury 해시태그를 이끈 진원지였다. 코트와 스카프가 하나로 합쳐진 이 디자인은 과시하지 않는 부유함을 가장 기능적으로 표현한다. 스웨덴 미니멀리즘의 현재.",
@@ -776,7 +664,7 @@ const POOL = [
     img:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"now", type:"Ensemble",
+    cat:"cloth", type:"Ensemble",
     brand:"Dries Van Noten", name:"Embroidered\nSilk Ensemble",
     season:"SS 2023 — Final Solo Season",
     why:"인쇄기가 아닌 손으로 그린 듯한 직물",
@@ -785,7 +673,7 @@ const POOL = [
     img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"now", type:"Ensemble",
+    cat:"cloth", type:"Ensemble",
     brand:"Issey Miyake", name:"Pleats Please\nHommé Plissé",
     season:"Permanent — A-POC Universe",
     why:"주름 속에 건축이 살고 있다",
@@ -794,16 +682,7 @@ const POOL = [
     img:"https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"now", type:"Footwear",
-    brand:"Wales Bonner × Adidas", name:"Samba\nCollaboration",
-    season:"SS 2022 — Grace Wales Bonner",
-    why:"아프리카의 리듬이 유럽의 운동화를 만날 때",
-    desc:"그레이스 웨일즈 보너는 아프리카 디아스포라 문화와 유럽 럭셔리를 교차시키는 작업을 지속해왔다. <strong>아디다스 삼바와의 협업</strong>은 가장 대중적인 플랫폼에서 그 철학을 가장 선명하게 표현한 순간이었다. 문화를 신는다는 것의 의미.",
-    tags:["Footwear","Collaboration","Cultural"],
-    img:"https://images.unsplash.com/photo-1547461647-fd6d0c7f94ac?w=800&q=85&fit=crop&crop=top"
-  },
-  {
-    cat:"now", type:"Bottoms",
+    cat:"cloth", type:"Bottoms",
     brand:"Kiko Kostadinov", name:"Color-Block\nTwisted Trousers",
     season:"FW 2023 — Kiko Kostadinov",
     why:"컬러가 형태보다 먼저 말을 건다",
@@ -812,7 +691,7 @@ const POOL = [
     img:"https://images.unsplash.com/photo-1617952236317-0bd127407984?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"now", type:"Bottoms",
+    cat:"cloth", type:"Bottoms",
     brand:"Needles", name:"Butterfly Embroidered\nTrack Pants",
     season:"FW 2020 — Keizo Shimizu",
     why:"나비는 트랙팬츠 위에서도 날 수 있다",
@@ -821,7 +700,137 @@ const POOL = [
     img:"https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"now", type:"Tops",
+    cat:"cloth", type:"Knitwear",
+    brand:"Marni", name:"Colorblock\nIntarsia Knit",
+    season:"SS 2023 — Francesco Risso",
+    why:"컬러는 의미이고 형태는 감정이다",
+    desc:"프란체스코 리소의 마르니는 <strong>인타르시아 니트</strong>를 감정의 언어로 사용한다. 분홍, 주황, 카키가 조각보처럼 이어지는 니트는 색의 충돌이 오히려 조화가 될 수 있다는 걸 보여준다. 옷이 아트 피스가 되는 가장 완만한 방법.",
+    tags:["Knitwear","Color","SS23"],
+    img:"https://images.unsplash.com/photo-1502230207279-e4296b2c108e?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    cat:"cloth", type:"Outerwear",
+    brand:"Craig Green", name:"Laced Puffer\nJacket",
+    season:"FW 2023 — Craig Green",
+    why:"건설 현장에서 쿠튀르까지, 끈의 여행",
+    desc:"크레이그 그린의 <strong>레이싱 구조</strong>는 건설 현장 하네스에서 영감을 받았다. 끈으로 결속된 퍼퍼 재킷은 기능과 형식, 보호와 노출의 역설을 입는다. 영국 현대 남성복의 가장 실험적이고 지속적인 목소리.",
+    tags:["Outerwear","Technical","FW23"],
+    img:"https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?w=800&q=85&fit=crop&crop=top"
+  },
+
+  /* ── ACCESSORY ── */
+  {
+    cat:"accessory", type:"Bag",
+    brand:"Hermès", name:"Kelly 25\n— Crocodile",
+    season:"Timeless — Heritage",
+    why:"가장 사치스러운 것은 시간이고, 그것이 가방이 됐다",
+    desc:"1956년 그레이스 켈리가 임신한 배를 가리기 위해 들었던 백이 <strong>켈리 백</strong>이 됐다. 크로커다일 스킨의 결은 만질수록 살아있고, 팔리즈 잠금장치는 수백 번 열고 닫아도 정밀하다. 에르메스가 단순한 브랜드가 아닌 문화임을 증명하는 오브젝트.",
+    tags:["Bag","Heritage","Iconic"],
+    img:"https://upload.wikimedia.org/wikipedia/commons/6/6f/Red_Crocodile_Kelly_Bag.jpg"
+  },
+  {
+    cat:"accessory", type:"Bag",
+    brand:"Celine", name:"Trapeze Bag\n(Phoebe Philo)",
+    season:"SS 2011 — Phoebe Philo Era",
+    why:"여성이 스스로를 위해 입는 옷을 발명한 순간",
+    desc:"피비 파일로의 셀린느는 <strong>페미니스트 럭셔리</strong>를 발명했다. 트라페즈 백은 복잡하지 않지만 완벽한 비율로, '지적인 여성이 무엇을 드는가'에 답했다. 팬들이 스스로를 부르는 신조어 'Philophile'은 그 영향력의 크기다.",
+    tags:["Bag","Minimal","Archive"],
+    img:"https://images.unsplash.com/photo-1682364853446-db043f643207?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    cat:"accessory", type:"Bag",
+    brand:"Lemaire", name:"Croissant Bag\n& Relaxed Coat",
+    season:"FW 2023 — Christophe Lemaire",
+    why:"파리의 아침 공기가 담긴 가방",
+    desc:"크리스토프 르메르의 <strong>크루아상 백</strong>은 파리의 아침을 닮았다. 꾸미지 않은 듯한 드레이핑 코트와의 조합은 '노력하지 않은 것처럼 보이는 노력'의 진수. 20년 후에도 어색하지 않을 타임리스 아이템.",
+    tags:["Bag","Outerwear","Timeless"],
+    img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    cat:"accessory", type:"Bag",
+    brand:"Jacquemus", name:"Le Chiquito\nMini Bag",
+    season:"SS 2019 — Simon Porte Jacquemus",
+    why:"기능을 포기했을 때 비로소 가장 아름다워졌다",
+    desc:"손바닥 위에 올라오는 <strong>르 시키토 백</strong>은 기능을 포기하고 미학만을 남긴 오브젝트다. 프로방스 출신 시몽 포르트 자크뮈스의 남프랑스 햇살이 담긴 디자인. 인스타그램 시대의 가장 완벽한 패션 아이콘.",
+    tags:["Bag","Minimal","Iconic"],
+    img:"https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    cat:"accessory", type:"Bag",
+    brand:"The Row", name:"Margaux Bag\n& Cashmere Coat",
+    season:"FW 2024 — Olsen Sisters",
+    why:"침묵이 가장 큰 목소리를 낼 때",
+    desc:"메리-케이트와 애슐리 올슨이 만든 <strong>더 로우</strong>는 로고 없는 럭셔리의 정점이다. 마르고 백의 매끈한 가죽과 오버사이즈 캐시미어 코트의 조합은 '가진 자의 침묵'을 옷으로 번역한 결과물.",
+    tags:["Bag","Quiet Luxury","30–50s"],
+    img:"https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    cat:"accessory", type:"Footwear",
+    brand:"Rick Owens", name:"Geobasket\nPlatform Sneaker",
+    season:"FW 2014 — Vicious",
+    why:"어둠 속에서 가장 건축적인 실루엣",
+    desc:"릭 오웬스의 <strong>기오바스켓</strong>은 단순한 스니커가 아닌 조각품이다. 두꺼운 크레이프 솔이 만드는 건축적 형태는 착용자를 2~3cm 높여주는 것 이상의 존재감을 부여한다. 반복 착용할수록 주인의 몸에 맞춰가는, 살아있는 오브젝트.",
+    tags:["Footwear","Avant-garde","Unisex"],
+    img:"https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    cat:"accessory", type:"Footwear",
+    brand:"Wales Bonner × Adidas", name:"Samba\nCollaboration",
+    season:"SS 2022 — Grace Wales Bonner",
+    why:"아프리카의 리듬이 유럽의 운동화를 만날 때",
+    desc:"그레이스 웨일즈 보너는 아프리카 디아스포라 문화와 유럽 럭셔리를 교차시키는 작업을 지속해왔다. <strong>아디다스 삼바와의 협업</strong>은 가장 대중적인 플랫폼에서 그 철학을 가장 선명하게 표현한 순간이었다. 문화를 신는다는 것의 의미.",
+    tags:["Footwear","Collaboration","Cultural"],
+    img:"https://images.unsplash.com/photo-1652083774870-72fa7ed17dbc?w=800&q=85&fit=crop&crop=top"
+  },
+
+  /* ── ICON ── */
+  {
+    cat:"icon", type:"Outerwear",
+    brand:"Raf Simons", name:"'Consumed'\nPatched Jacket",
+    season:"FW 2002 — Riot Riot Riot",
+    why:"청춘의 분노가 처음으로 런웨이 위에서 말을 걸었다",
+    desc:"라프 시몬스의 FW2002 'Riot Riot Riot' 컬렉션은 청소년 문화, 반항, 그리고 소비주의를 패치워크 재킷 한 벌에 압축했다. <strong>세라믹 원단 위의 사진 패치</strong>들은 지금도 아카이브 시장 최고가를 경신한다. 스트리트웨어가 하이패션이 될 수 있음을 처음 증명한 순간.",
+    tags:["Archive","Iconic","20–35s"],
+    img:"https://images.unsplash.com/photo-1508964801641-4b2410705b73?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    cat:"icon", type:"Tops",
+    brand:"Comme des Garçons", name:"'Body Meets Dress'\nPadded Jacket",
+    season:"FW 1997 — Rei Kawakubo",
+    why:"몸의 해방선언, 옷의 조각화",
+    desc:"레이 카와쿠보가 1997년 발표한 이 컬렉션은 패션계를 충격에 빠뜨렸다. 혹처럼 돌출된 <strong>패딩 범프</strong>들은 서양 미의 기준인 허리와 어깨를 무력화시켰다. 패션이 예술과 완전히 동격이 됐음을 선언한 작품이자, 지금도 모든 아방가르드 디자이너의 교과서.",
+    tags:["Avant-garde","Iconic","Archive"],
+    img:"https://images.unsplash.com/photo-1770720000584-13e8d868022b?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    cat:"icon", type:"Footwear",
+    brand:"Alexander McQueen", name:"Armadillo Shoes\n& Plato's Atlantis",
+    season:"SS 2010 — Final Collection",
+    why:"패션이 비극이 될 때 가장 아름답다",
+    desc:"리 알렉산더 맥퀸의 마지막 완성 컬렉션 '플라톤의 아틀란티스'. <strong>아르마딜로 슈즈</strong>는 발이 신을 수 있는 조각품이었고, 컬렉션 전체는 그가 세상을 떠나기 직전 자연과 인간의 경계에 대한 마지막 발언이었다.",
+    tags:["Footwear","Theatrical","Archive"],
+    img:"https://upload.wikimedia.org/wikipedia/commons/a/a5/Platos_Atlantis_at_Savage_Beauty_%28cropped_to_shoes%29.jpg"
+  },
+  {
+    cat:"icon", type:"Footwear",
+    brand:"Maison Margiela", name:"Original Tabi Boot\n1989",
+    season:"FW 1989 — Martin Margiela",
+    why:"발굽이 질문을 던진다: 이것은 신발인가 조각인가",
+    desc:"1989년 마르지엘라가 처음 선보인 <strong>타비 부츠</strong>는 30년이 지난 지금도 복각되고 사랑받는다. 발가락 사이를 가르는 분리된 앞코는 일본 전통 버선에서 온 아이디어다. 신발 하나가 '옷이란 무엇인가'라는 질문을 던진다.",
+    tags:["Footwear","Iconic","Archive"],
+    img:"https://upload.wikimedia.org/wikipedia/commons/a/a4/Tabi_shoes_modern_%28margiela%29.png"
+  },
+  {
+    cat:"icon", type:"Bottoms",
+    brand:"Miu Miu", name:"Ultra Micro\nSkirt",
+    season:"FW 2022 — Miuccia Prada",
+    why:"미니스커트는 언제나 혁명이다",
+    desc:"허리선 아래로 아슬아슬하게 걸친 <strong>울트라 마이크로 스커트</strong>는 2022년 인터넷 전체를 강타했다. 미우 미우는 Y2K 리바이벌을 주도하며 20대 초반을 패션의 중심으로 끌어들였다. 도발적이면서 섬세한, 동시대 가장 화제적인 아이템.",
+    tags:["Bottoms","Y2K","Womenswear"],
+    img:"https://images.unsplash.com/photo-1613909671501-f9678ffc1d33?w=800&q=85&fit=crop&crop=top"
+  },
+  {
+    cat:"icon", type:"Tops",
     brand:"Supreme", name:"Box Logo\nHoodie",
     season:"FW 2018 — 30th Anniversary",
     why:"박스 하나가 세계를 움직였다",
@@ -830,29 +839,20 @@ const POOL = [
     img:"https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&q=85&fit=crop&crop=top"
   },
   {
-    cat:"now", type:"Knitwear",
-    brand:"Marni", name:"Colorblock\nIntarsia Knit",
-    season:"SS 2023 — Francesco Risso",
-    why:"컬러는 의미이고 형태는 감정이다",
-    desc:"프란체스코 리소의 마르니는 <strong>인타르시아 니트</strong>를 감정의 언어로 사용한다. 분홍, 주황, 카키가 조각보처럼 이어지는 니트는 색의 충돌이 오히려 조화가 될 수 있다는 걸 보여준다. 옷이 아트 피스가 되는 가장 완만한 방법.",
-    tags:["Knitwear","Color","SS23"],
-    img:"https://images.unsplash.com/photo-1515462277126-2dd0469f0f9f?w=800&q=85&fit=crop&crop=top"
-  },
-  {
-    cat:"now", type:"Outerwear",
-    brand:"Craig Green", name:"Laced Puffer\nJacket",
-    season:"FW 2023 — Craig Green",
-    why:"건설 현장에서 쿠튀르까지, 끈의 여행",
-    desc:"크레이그 그린의 <strong>레이싱 구조</strong>는 건설 현장 하네스에서 영감을 받았다. 끈으로 결속된 퍼퍼 재킷은 기능과 형식, 보호와 노출의 역설을 입는다. 영국 현대 남성복의 가장 실험적이고 지속적인 목소리.",
-    tags:["Outerwear","Technical","FW23"],
-    img:"https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?w=800&q=85&fit=crop&crop=top"
+    cat:"icon", type:"Bag",
+    brand:"Balenciaga", name:"Motorcycle Bag\n(Nicolas Ghesquière)",
+    season:"FW 2001 — The Motor",
+    why:"록의 정신을 핸드백으로 번역하다",
+    desc:"니콜라 게스키에르가 발렌시아가를 혁신한 <strong>모터 백</strong>은 2000년대를 정의했다. 지퍼, 스터드, 가는 끈이 얽힌 구조는 록과 쿠튀르의 교차점이었다. 매거진마다 대기자 명단이 넘쳤던, 핸드백 역사의 결정적 챕터.",
+    tags:["Bag","Iconic","Archive"],
+    img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=85&fit=crop&crop=top"
   }
 ];
 
 /* ══════════════════════════
    STATE
 ══════════════════════════ */
-const CATS   = ['all','korean','archive','now'];
+const CATS   = ['all','cloth','accessory','icon'];
 let activeCat = 'all';
 const seeds  = {};
 const cursors = {};
